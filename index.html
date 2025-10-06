@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SynthAI Commerce - Complete AI Business Platform</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #06d6a0;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --gray: #6b7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        /* Dashboard Section */
+        .dashboard {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+
+        .dashboard-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Chatbot Section */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            padding: 0.75rem;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+
+        .message.bot {
+            background: var(--light);
+            align-self: flex-start;
+        }
+
+        .message.user {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-right: 0.5rem;
+        }
+
+        /* Shopping Cart */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            margin-left: 1rem;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Security Badge */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--success);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chatbot-window {
+                width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    SynthAI Commerce
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#dashboard">Dashboard</a>
+                    <a href="#marketplace">Marketplace</a>
+                    <a href="#security">Security</a>
+                </div>
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-outline">Login</a>
+                    <a href="#" class="btn btn-primary">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Complete AI-Powered E-Commerce Platform</h1>
+            <p>Create, market, and sell with our synthetic intelligence system. From content creation to military-grade security, we handle everything.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">Start Free Trial</a>
+                <a href="#" class="btn btn-outline" style="color: white; border-color: white;">Watch Demo</a>
+            </div>
+            <div class="security-badge">
+                <span>🔒</span> Military-Grade Security Active
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI-Powered Features</h2>
+                <p>Our synthetic intelligence system handles every aspect of your e-commerce business</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Content Creation</h3>
+                    <p>AI-generated product descriptions, blog posts, and marketing copy tailored to your brand voice.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <h3>HD Photo & Video</h3>
+                    <p>Create stunning 4K product photos and videos with AI enhancement and background removal.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛒</div>
+                    <h3>Full E-Commerce</h3>
+                    <p>Complete online store with shopping cart, payment processing, and inventory management.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Social Media Marketing</h3>
+                    <p>Automated posting to TikTok, Facebook, Instagram with AI-optimized content scheduling.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Military-Grade Security</h3>
+                    <p>End-to-end encryption, fraud detection, and DDoS protection for your business and customers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Assistant "Robyn"</h3>
+                    <p>24/7 customer support, order tracking, and personalized shopping recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard" id="dashboard">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI Business Dashboard</h2>
+                <p>Manage your entire e-commerce operation from one powerful interface</p>
+            </div>
+            
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" data-tab="content">Content Creation</button>
+                <button class="tab-btn" data-tab="media">Media Production</button>
+                <button class="tab-btn" data-tab="ecommerce">E-Commerce</button>
+                <button class="tab-btn" data-tab="marketing">Marketing</button>
+                <button class="tab-btn" data-tab="analytics">Analytics</button>
+            </div>
+            
+            <div class="tab-content active" id="content-tab">
+                <h3>AI Content Creation Studio</h3>
+                <p>Generate high-quality content for your products and marketing campaigns.</p>
+                <div style="margin-top: 1rem;">
+                    <textarea id="content-brief" placeholder="Describe what content you need..." style="width: 100%; height: 100px; padding: 1rem; border-radius: 8px; border: 1px solid #e5e7eb;"></textarea>
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="generateContent()">Generate Content</button>
+                </div>
+                <div id="content-output" style="margin-top: 1rem; padding: 1rem; background: var(--light); border-radius: 8px; display: none;"></div>
+            </div>
+            
+            <div class="tab-content" id="media-tab">
+                <h3>HD Photo & Video Production</h3>
+                <p>Create professional product images and videos in 4K quality.</p>
+                <div style="margin-top: 1rem;">
+                    <input type="file" id="media-upload" accept="image/*,video/*" style="margin-bottom: 1rem;">
+                    <div>
+                        <button class="btn btn-primary" onclick="enhanceMedia()">Enhance to 4K</button>
+                        <button class="btn btn-outline" onclick="removeBackground()">Remove Background</button>
+                        <button class="btn btn-outline" onclick="generateVideo()">Create Video Ad</button>
+                    </div>
+                </div>
+                <div id="media-output" style="margin-top: 1rem; display: none;">
+                    <img id="enhanced-image" style="max-width: 100%; border-radius: 8px; display: none;">
+                    <video id="generated-video" controls style="max-width: 100%; border-radius: 8px; display: none;"></video>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="ecommerce-tab">
+                <h3>E-Commerce Management</h3>
+                <p>Manage products, inventory, and orders.</p>
+                <div style="margin-top: 1rem;">
+                    <div class="cart-item">
+                        <img src="https://via.placeholder.com/60" alt="Product">
+                        <div class="cart-item-details">
+                            <h4>Premium Wireless Headphones</h4>
+                            <p>$199.99</p>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button class="btn btn-outline" onclick="updateQuantity(this, -1)">-</button>
+                            <span>1</span>
+                            <button class="btn btn-outline" onclick="updateQuantity(this, 1)">+</button>
+                            <button class="btn" style="background: var(--danger); color: white;" onclick="removeItem(this)">Delete</button>
+                        </div>
+                    </div>
+                    <div class="cart-item">
+                        <img src="https://via.placeholder.com/60" alt="Product">
+                        <div class="cart-item-details">
+                            <h4>Smart Fitness Watch</h4>
+                            <p>$249.99</p>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button class="btn btn-outline" onclick="updateQuantity(this, -1)">-</button>
+                            <span>2</span>
+                            <button class="btn btn-outline" onclick="updateQuantity(this, 1)">+</button>
+                            <button class="btn" style="background: var(--danger); color: white;" onclick="removeItem(this)">Delete</button>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; text-align: right;">
+                        <h3>Total: $699.97</h3>
+                        <button class="btn btn-primary">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="marketing-tab">
+                <h3>Social Media Marketing</h3>
+                <p>Schedule and publish content across all platforms automatically.</p>
+                <div style="margin-top: 1rem;">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <button class="btn btn-outline">TikTok</button>
+                        <button class="btn btn-outline">Instagram</button>
+                        <button class="btn btn-outline">Facebook</button>
+                        <button class="btn btn-outline">Twitter</button>
+                    </div>
+                    <textarea placeholder="Write your post or let AI generate one..." style="width: 100%; height: 100px; padding: 1rem; border-radius: 8px; border: 1px solid #e5e7eb;"></textarea>
+                    <button class="btn btn-primary" style="margin-top: 1rem;">Schedule Posts</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="analytics-tab">
+                <h3>Business Analytics</h3>
+                <p>AI-powered insights to grow your business.</p>
+                <div style="margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="background: var(--light); padding: 1rem; border-radius: 8px; text-align: center;">
+                        <h3>$12,458</h3>
+                        <p>Revenue</p>
+                    </div>
+                    <div style="background: var(--light); padding: 1rem; border-radius: 8px; text-align: center;">
+                        <h3>1,247</h3>
+                        <p>Orders</p>
+                    </div>
+                    <div style="background: var(--light); padding: 1rem; border-radius: 8px; text-align: center;">
+                        <h3>8.2%</h3>
+                        <p>Conversion</p>
+                    </div>
+                    <div style="background: var(--light); padding: 1rem; border-radius: 8px; text-align: center;">
+                        <h3>24.5K</h3>
+                        <p>Visitors</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-toggle" id="chatbot-toggle">
+            🤖
+        </div>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <h3>Robyn AI Assistant</h3>
+                <span id="chatbot-close" style="cursor: pointer;">×</span>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot">
+                    Hello! I'm Robyn, your AI assistant. How can I help you today?
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Type your message...">
+                <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and content
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+
+        // Chatbot functionality
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+
+        chatbotToggle.addEventListener('click', () => {
+            chatbotWindow.style.display = 'flex';
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+        });
+
+        function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (message === '') return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            chatbotInput.value = '';
+            
+            // Simulate AI response
+            setTimeout(() => {
+                const responses = [
+                    "I can help you with that! Our AI system can generate product descriptions, create marketing content, or help with your e-commerce store.",
+                    "Based on your query, I recommend using our content creation studio for that task. Would you like me to open it for you?",
+                    "For security-related questions, our platform uses military-grade encryption and real-time fraud detection to protect all transactions.",
+                    "I can assist with social media marketing automation. We support TikTok, Instagram, Facebook, and Twitter with AI-optimized posting schedules.",
+                    "For HD photo and video creation, try our media production tools. They can enhance images to 4K quality and create professional product videos."
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessage(randomResponse, 'bot');
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            messageDiv.textContent = text;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        // Allow pressing Enter to send message
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Content generation simulation
+        function generateContent() {
+            const brief = document.getElementById('content-brief').value;
+            if (brief === '') {
+                alert('Please enter a content brief');
+                return;
+            }
+            
+            const output = document.getElementById('content-output');
+            output.style.display = 'block';
+            output.innerHTML = '<p>Generating content with AI... <span class="loading">.</span></p>';
+            
+            // Simulate AI processing
+            setTimeout(() => {
+                const contentTypes = [
+                    "Product Description",
+                    "Blog Post",
+                    "Social Media Post",
+                    "Email Newsletter",
+                    "Ad Copy"
+                ];
+                
+                let generatedContent = `<h4>AI-Generated Content</h4>`;
+                contentTypes.forEach(type => {
+                    generatedContent += `
+                        <div style="margin-bottom: 1rem; padding: 1rem; background: white; border-radius: 8px;">
+                            <strong>${type}:</strong>
+                            <p>Based on your brief "${brief}", our AI has created engaging ${type.toLowerCase()} that aligns with current market trends and SEO best practices.</p>
+                            <button class="btn btn-outline" style="margin-top: 0.5rem;">Use This Content</button>
+                        </div>
+                    `;
+                });
+                
+                output.innerHTML = generatedContent;
+            }, 2000);
+        }
+
+        // Media enhancement simulation
+        function enhanceMedia() {
+            const output = document.getElementById('media-output');
+            const image = document.getElementById('enhanced-image');
+            const video = document.getElementById('generated-video');
+            
+            output.style.display = 'block';
+            video.style.display = 'none';
+            image.style.display = 'block';
+            image.src = 'https://via.placeholder.com/600x400/2563eb/ffffff?text=4K+Enhanced+Image';
+            
+            // Simulate processing
+            image.style.opacity = '0.5';
+            setTimeout(() => {
+                image.style.opacity = '1';
+            }, 1500);
+        }
+
+        function removeBackground() {
+            const output = document.getElementById('media-output');
+            const image = document.getElementById('enhanced-image');
+            const video = document.getElementById('generated-video');
+            
+            output.style.display = 'block';
+            video.style.display = 'none';
+            image.style.display = 'block';
+            image.src = 'https://via.placeholder.com/600x400/7c3aed/ffffff?text=Background+Removed';
+            
+            // Simulate processing
+            image.style.opacity = '0.5';
+            setTimeout(() => {
+                image.style.opacity = '1';
+            }, 1500);
+        }
+
+        function generateVideo() {
+            const output = document.getElementById('media-output');
+            const image = document.getElementById('enhanced-image');
+            const video = document.getElementById('generated-video');
+            
+            output.style.display = 'block';
+            image.style.display = 'none';
+            video.style.display = 'block';
+            video.innerHTML = '<source src="#" type="video/mp4">Your browser does not support the video tag.';
+            
+            // In a real implementation, this would show an actual video
+            video.parentNode.innerHTML += '<p>AI is generating your 4K product video... This may take a few minutes.</p>';
+        }
+
+        // Shopping cart functionality
+        function updateQuantity(button, change) {
+            const quantityElement = button.parentElement.querySelector('span');
+            let quantity = parseInt(quantityElement.textContent);
+            quantity += change;
+            
+            if (quantity < 0) quantity = 0;
+            quantityElement.textContent = quantity;
+            
+            // Update total (simplified)
+            updateCartTotal();
+        }
+
+        function removeItem(button) {
+            button.closest('.cart-item').remove();
+            updateCartTotal();
+        }
+
+        function updateCartTotal() {
+            // In a real implementation, this would calculate based on all items
+            console.log('Cart updated');
+        }
+
+        // Loading animation for content generation
+        let loadingDots = 0;
+        setInterval(() => {
+            if (document.querySelector('.loading')) {
+                loadingDots = (loadingDots + 1) % 4;
+                document.querySelector('.loading').textContent = '.'.repeat(loadingDots + 1);
+            }
+        }, 500);
+    </script>
+</body>
+</html>
